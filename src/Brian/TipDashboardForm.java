@@ -4,12 +4,16 @@
  */
 package Brian;
 
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.*;
+
 /**
  *
  * @author apple
  */
 public class TipDashboardForm extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TipDashboardForm.class.getName());
 
     /**
@@ -17,6 +21,7 @@ public class TipDashboardForm extends javax.swing.JFrame {
      */
     public TipDashboardForm() {
         initComponents();
+        setLocationRelativeTo(null); // center the window
     }
 
     /**
@@ -28,21 +33,102 @@ public class TipDashboardForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new JPanel();
+        headerLabel = new JLabel();
+        jScrollPane1 = new JScrollPane();
+        tipsTextArea = new JTextArea();
+        markAdoptedButton = new JButton();
+        addTipButton = new JButton();
+        backButton = new JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        jPanel1.setBackground(new Color(245, 255, 245));
+
+        headerLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        headerLabel.setForeground(new Color(34, 139, 34));
+        headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        headerLabel.setText("Tips Dashboard");
+
+        tipsTextArea.setEditable(false);
+        tipsTextArea.setBackground(new Color(240, 255, 240));
+        tipsTextArea.setColumns(20);
+        tipsTextArea.setRows(5);
+        tipsTextArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        tipsTextArea.setText(
+                "💡 Sample Tip 1: Save water by turning off the tap while brushing.\n" +
+                "🌿 Sample Tip 2: Use reusable bags when shopping.\n" +
+                "💡 Sample Tip 3: Unplug electronics when not in use."
+        );
+        tipsTextArea.setLineWrap(true);
+        tipsTextArea.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(tipsTextArea);
+
+        markAdoptedButton.setText("Mark as Adopted");
+        styleButton(markAdoptedButton);
+
+        addTipButton.setText("Add New Tip");
+        styleButton(addTipButton);
+
+        backButton.setText("Back to Menu");
+        styleButton(backButton);
+
+        // GroupLayout
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
+            .addComponent(headerLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(markAdoptedButton, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(addTipButton, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(backButton, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(headerLabel)
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(markAdoptedButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addTipButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    // Helper method to style buttons
+    private void styleButton(JButton button) {
+        button.setFont(new Font("Arial", Font.PLAIN, 14));
+        button.setBackground(new Color(34, 139, 34));
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createLineBorder(new Color(0, 100, 0)));
+    }
 
     /**
      * @param args the command line arguments
@@ -50,25 +136,29 @@ public class TipDashboardForm extends javax.swing.JFrame {
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ReflectiveOperationException | UnsupportedLookAndFeelException ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new TipDashboardForm().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JButton addTipButton;
+    private JButton backButton;
+    private JLabel headerLabel;
+    private JScrollPane jScrollPane1;
+    private JPanel jPanel1;
+    private JButton markAdoptedButton;
+    private JTextArea tipsTextArea;
     // End of variables declaration//GEN-END:variables
 }
+
