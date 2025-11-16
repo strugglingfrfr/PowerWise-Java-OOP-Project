@@ -4,6 +4,8 @@
  */
 package Hamza;
 
+import power.wise.app.PowerWiseGUI;
+
 /**
  *
  * @author apple
@@ -28,21 +30,95 @@ public class ReportGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        headerPanel = new javax.swing.JPanel();
+        headingLabel = new javax.swing.JLabel();
+        MainPanel = new javax.swing.JPanel();
+        btnMainMenu = new javax.swing.JButton();
+        Icon1 = new javax.swing.JLabel();
+        btn1stform = new javax.swing.JButton();
+        backgroundLabel = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        headerPanel.setBackground(new java.awt.Color(26, 101, 26));
+
+        headingLabel.setFont(new java.awt.Font("Futura", 0, 22)); // NOI18N
+        headingLabel.setForeground(new java.awt.Color(255, 255, 255));
+        headingLabel.setText("PowerWise – Reports & Progress");
+
+        javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
+        headerPanel.setLayout(headerPanelLayout);
+        headerPanelLayout.setHorizontalGroup(
+            headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerPanelLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(headingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        headerPanelLayout.setVerticalGroup(
+            headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(headingLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+
+        MainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnMainMenu.setBackground(new java.awt.Color(26, 101, 26));
+        btnMainMenu.setFont(new java.awt.Font("Helvetica Neue", 0, 15)); // NOI18N
+        btnMainMenu.setForeground(new java.awt.Color(242, 242, 242));
+        btnMainMenu.setText("Main Menu");
+        btnMainMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMainMenuActionPerformed(evt);
+            }
+        });
+        MainPanel.add(btnMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 170, 70));
+
+        Icon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/power/wise/app/icons/reportsIcon.png"))); // NOI18N
+        MainPanel.add(Icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 0, -1, -1));
+
+        btn1stform.setBackground(new java.awt.Color(26, 101, 26));
+        btn1stform.setFont(new java.awt.Font("Helvetica Neue", 0, 15)); // NOI18N
+        btn1stform.setForeground(new java.awt.Color(242, 242, 242));
+        btn1stform.setText("Reports Menu");
+        btn1stform.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn1stformActionPerformed(evt);
+            }
+        });
+        MainPanel.add(btn1stform, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 170, 70));
+
+        backgroundLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/power/wise/app/icons/ReportsBackground.jpg"))); // NOI18N
+        MainPanel.add(backgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 750, 420));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn1stformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1stformActionPerformed
+        // TODO add your handling code here:
+        new ReportsMenuForm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn1stformActionPerformed
+
+    private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
+        // TODO add your handling code here:
+        new PowerWiseGUI().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnMainMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -65,10 +141,17 @@ public class ReportGUI extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and dibtnMainMenuform */
         java.awt.EventQueue.invokeLater(() -> new ReportGUI().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Icon1;
+    private javax.swing.JPanel MainPanel;
+    private javax.swing.JLabel backgroundLabel;
+    private javax.swing.JButton btn1stform;
+    private javax.swing.JButton btnMainMenu;
+    private javax.swing.JPanel headerPanel;
+    private javax.swing.JLabel headingLabel;
     // End of variables declaration//GEN-END:variables
 }
