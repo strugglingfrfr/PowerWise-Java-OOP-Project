@@ -90,11 +90,11 @@ public class ApplianceGUI extends javax.swing.JFrame {
 
         iconLBL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/power/wise/app/icons/electric-appliance.png"))); // NOI18N
         iconLBL.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        mainPanel.add(iconLBL, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, -1, -1));
+        mainPanel.add(iconLBL, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 50, -1, -1));
 
         backgroundLBL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/power/wise/app/icons/appliancebackground.jpg"))); // NOI18N
         backgroundLBL.setText("jLabel1");
-        mainPanel.add(backgroundLBL, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, -2, 800, 430));
+        mainPanel.add(backgroundLBL, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, -2, 900, 430));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,7 +105,7 @@ public class ApplianceGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 429, Short.MAX_VALUE))
+                        .addGap(0, 329, Short.MAX_VALUE))
                     .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );

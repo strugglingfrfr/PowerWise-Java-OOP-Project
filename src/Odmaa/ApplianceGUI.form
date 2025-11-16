@@ -28,7 +28,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="mainPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="429" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="329" max="32767" attributes="0"/>
                   </Group>
                   <Component id="headerPanel" max="32767" attributes="0"/>
               </Group>
@@ -153,7 +153,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="650" y="50" width="-1" height="-1"/>
+              <AbsoluteConstraints x="750" y="50" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -166,7 +166,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="-5" y="-2" width="800" height="430"/>
+              <AbsoluteConstraints x="-5" y="-2" width="900" height="430"/>
             </Constraint>
           </Constraints>
         </Component>
