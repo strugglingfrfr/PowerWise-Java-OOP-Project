@@ -56,9 +56,9 @@ public class TipDashboardForm extends javax.swing.JFrame {
         tipsTextArea.setRows(5);
         tipsTextArea.setFont(new Font("Arial", Font.PLAIN, 14));
         tipsTextArea.setText(
-                "💡 Sample Tip 1: Save water by turning off the tap while brushing.\n" +
-                "🌿 Sample Tip 2: Use reusable bags when shopping.\n" +
-                "💡 Sample Tip 3: Unplug electronics when not in use."
+                " Sample Tip 1: Save water by turning off the tap while brushing.\n" +
+                " Sample Tip 2: Use reusable bags when shopping.\n" +
+                " Sample Tip 3: Unplug electronics when not in use."
         );
         tipsTextArea.setLineWrap(true);
         tipsTextArea.setWrapStyleWord(true);
