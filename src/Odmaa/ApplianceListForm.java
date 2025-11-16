@@ -96,7 +96,7 @@ public class ApplianceListForm extends javax.swing.JFrame {
 
         iconLBL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/power/wise/app/icons/electric-appliance.png"))); // NOI18N
         iconLBL.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        mainPanel.add(iconLBL, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 50, -1, -1));
+        mainPanel.add(iconLBL, new org.netbeans.lib.awtextra.AbsoluteConstraints(748, 20, 110, 120));
 
         backLBL.setBackground(new java.awt.Color(153, 255, 255));
         mainPanel.add(backLBL, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, 320, 30));
