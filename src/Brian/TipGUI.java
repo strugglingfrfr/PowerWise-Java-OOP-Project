@@ -12,7 +12,9 @@ public class TipGUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TipGUI.class.getName());
     
-    // NEW: CardLayout and Panels
+    /**
+    * CardLayout and Panels
+    */
     private java.awt.CardLayout cardLayout;
     private javax.swing.JPanel dashboardPanel;
     private javax.swing.JPanel addTipPanel;
@@ -35,15 +37,15 @@ public class TipGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        // ---------------------------------------------
-        // NEW: CardLayout for swapping between two forms
-        // ---------------------------------------------
+        /**
+        * CardLayout for swapping between two forms
+        */
         cardLayout = new java.awt.CardLayout();
         getContentPane().setLayout(cardLayout);
 
-        // ================================
-        // PANEL 1: TIPS DASHBOARD
-        // ================================
+        /**
+        * TIPS DASHBOARD
+        */
         dashboardPanel = new javax.swing.JPanel(new java.awt.BorderLayout());
 
         javax.swing.JLabel lblDashboard = new javax.swing.JLabel("💡 Green Tips Dashboard", javax.swing.SwingConstants.CENTER);
@@ -72,9 +74,9 @@ public class TipGUI extends javax.swing.JFrame {
 
         dashboardPanel.add(dashboardButtons, java.awt.BorderLayout.SOUTH);
 
-        // ================================
-        // PANEL 2: ADD TIP FORM
-        // ================================
+        /**
+        *ADD TIP FORM
+        */
         addTipPanel = new javax.swing.JPanel(new java.awt.GridBagLayout());
         java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
         gbc.insets = new java.awt.Insets(10, 10, 10, 10);
@@ -107,15 +109,15 @@ public class TipGUI extends javax.swing.JFrame {
         gbc.gridx = 1;
         addTipPanel.add(btnCancel, gbc);
 
-        // ------------------------------------------
-        // ADD BOTH PANELS TO THE FRAME
-        // ------------------------------------------
+        /**
+        * ADD BOTH PANELS TO THE FRAME
+        */
         getContentPane().add(dashboardPanel, "dashboard");
         getContentPane().add(addTipPanel, "addtip");
 
-        // ------------------------------------------
-        // BUTTON ACTIONS (Navigation)
-        // ------------------------------------------
+        /*
+        * BUTTON ACTIONS (Navigation)
+        */
         btnAddTip.addActionListener(e -> cardLayout.show(getContentPane(), "addtip"));
 
         btnCancel.addActionListener(e -> cardLayout.show(getContentPane(), "dashboard"));
@@ -132,7 +134,7 @@ public class TipGUI extends javax.swing.JFrame {
         });
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }/* </editor-fold>//GEN-END:initComponents */
 
     /**
      * @param args the command line arguments
@@ -154,7 +156,8 @@ public class TipGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new TipGUI().setVisible(true));
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
+    /** Variables declaration - do not modify//GEN-BEGIN:variables
+    * End of variables declaration//GEN-END:variables
+    */
 }
 
