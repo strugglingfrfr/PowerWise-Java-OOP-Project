@@ -14,12 +14,16 @@ public class TipGUI extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TipGUI.class.getName());
 
+    /**
+     * Creates new form TipGUI
+     */
     public TipGUI() {
         initComponents();
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // center window
     }
 
     @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         headerPanel = new javax.swing.JPanel();
@@ -27,7 +31,7 @@ public class TipGUI extends javax.swing.JFrame {
         mainPanel = new javax.swing.JPanel();
         btnMainMenu = new javax.swing.JButton();
         btnDashboard = new javax.swing.JButton();
-        btnAddTip = new javax.swing.JButton();
+        btnAddTip = new javax.swing.JButton();   // NEW BUTTON ✔✔✔
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -35,7 +39,7 @@ public class TipGUI extends javax.swing.JFrame {
         headerPanel.setBackground(new java.awt.Color(26, 101, 26));
         headingLabel.setFont(new java.awt.Font("Futura", 0, 22));
         headingLabel.setForeground(new java.awt.Color(255, 255, 255));
-        headingLabel.setText("Green Tips – Section Menu");
+        headingLabel.setText("Tips Dashboard");
 
         javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
         headerPanel.setLayout(headerPanelLayout);
@@ -54,7 +58,7 @@ public class TipGUI extends javax.swing.JFrame {
         // Main Panel
         mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        // Back to Main Menu
+        // Main Menu Button
         btnMainMenu.setBackground(new java.awt.Color(26, 101, 26));
         btnMainMenu.setFont(new java.awt.Font("Helvetica Neue", 0, 15));
         btnMainMenu.setForeground(new java.awt.Color(242, 242, 242));
@@ -64,21 +68,21 @@ public class TipGUI extends javax.swing.JFrame {
             new PowerWiseGUI().setVisible(true);
             this.dispose();
         });
-        mainPanel.add(btnMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 170, 60));
+        mainPanel.add(btnMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 170, 70));
 
-        // Open Dashboard
+        // Dashboard Button
         btnDashboard.setBackground(new java.awt.Color(26, 101, 26));
         btnDashboard.setFont(new java.awt.Font("Helvetica Neue", 0, 15));
         btnDashboard.setForeground(new java.awt.Color(242, 242, 242));
-        btnDashboard.setText("Tips Dashboard");
+        btnDashboard.setText("Tip Dashboard");
         btnDashboard.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         btnDashboard.addActionListener(evt -> {
-            new TipsDashboardForm().setVisible(true);
+            new TipDashboardForm().setVisible(true);
             this.dispose();
         });
-        mainPanel.add(btnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 170, 60));
+        mainPanel.add(btnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 170, 70));
 
-        // Open Add Tip Form
+        // NEW Add Tip Button ✔✔✔
         btnAddTip.setBackground(new java.awt.Color(26, 101, 26));
         btnAddTip.setFont(new java.awt.Font("Helvetica Neue", 0, 15));
         btnAddTip.setForeground(new java.awt.Color(242, 242, 242));
@@ -88,7 +92,7 @@ public class TipGUI extends javax.swing.JFrame {
             new AddTipForm().setVisible(true);
             this.dispose();
         });
-        mainPanel.add(btnAddTip, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 155, 170, 60));
+        mainPanel.add(btnAddTip, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 170, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,29 +110,18 @@ public class TipGUI extends javax.swing.JFrame {
         );
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (Exception ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
         java.awt.EventQueue.invokeLater(() -> new TipGUI().setVisible(true));
     }
 
-    // Variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel headerPanel;
     private javax.swing.JLabel headingLabel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JButton btnMainMenu;
     private javax.swing.JButton btnDashboard;
-    private javax.swing.JButton btnAddTip;
+    private javax.swing.JButton btnAddTip;   // ✔ ADDED
+    // End of variables declaration//GEN-END:variables
 }
-
