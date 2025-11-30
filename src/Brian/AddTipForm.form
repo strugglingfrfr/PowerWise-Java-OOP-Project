@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Form version="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Add Tip"/>
   </Properties>
+
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
@@ -19,131 +26,170 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-        <Component id="jPanel1" alignment="0" pref="400" max="32767"/>
+        <Group type="102" attributes="0">
+          <EmptySpace max="32767" attributes="0"/>
+          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+            <Component id="headerPL" max="32767" attributes="0"/>
+            <Component id="mainPL" pref="500" max="32767" attributes="0"/>
+          </Group>
+          <EmptySpace max="32767" attributes="0"/>
+        </Group>
       </Group>
     </DimensionLayout>
+
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-        <Component id="jPanel1" alignment="0" pref="300" max="32767"/>
+        <Group type="102" attributes="0">
+          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+          <Component id="headerPL" min="-2" max="-2" attributes="0"/>
+          <EmptySpace max="-2" attributes="0"/>
+          <Component id="mainPL" min="-2" pref="330" max="-2" attributes="0"/>
+          <EmptySpace pref="20" max="32767" attributes="0"/>
+        </Group>
       </Group>
     </DimensionLayout>
   </Layout>
 
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+
+    <!-- HEADER PANEL -->
+    <Container class="javax.swing.JPanel" name="headerPL">
       <Properties>
-        <Property name="background" type="java.awt.Color" value="245,255,245"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color red="1a" green="65" blue="1a" type="rgb"/>
+        </Property>
       </Properties>
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGroupLayout">
-        <Properties/>
-        <Constraints/>
-        <LayoutCode>
-          <LayoutCodeItem name="HorizontalGroup" type="java.lang.String">
-            <Value><![CDATA[
-              addGroup(
-                createParallelGroup()
-                  .addComponent(headerLabel, GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
-                  .addComponent(tipLabel)
-                  .addComponent(tipScrollPane, GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
-                  .addComponent(adoptedCheckBox)
-                  .addGroup(
-                    createSequentialGroup()
-                      .addComponent(saveButton)
-                      .addGap(20)
-                      .addComponent(cancelButton)
-                  ),
-                30, 370, Short.MAX_VALUE
-              )
-            ]]></Value>
-          </LayoutCodeItem>
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0">
+            <Group type="102" alignment="0">
+              <EmptySpace min="-2" pref="30" max="-2"/>
+              <Component id="titleLBL" min="-2" max="-2"/>
+              <EmptySpace max="32767"/>
+            </Group>
+          </Group>
+        </DimensionLayout>
 
-          <LayoutCodeItem name="VerticalGroup" type="java.lang.String">
-            <Value><![CDATA[
-              addGroup(
-                createSequentialGroup()
-                  .addGap(25)
-                  .addComponent(headerLabel)
-                  .addGap(15)
-                  .addComponent(tipLabel)
-                  .addPreferredGap(LayoutStyle.UNRELATED)
-                  .addComponent(tipScrollPane, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-                  .addGap(15)
-                  .addComponent(adoptedCheckBox)
-                  .addGap(25)
-                  .addGroup(
-                    createParallelGroup(GroupLayout.BASELINE)
-                      .addComponent(saveButton)
-                      .addComponent(cancelButton)
-                  )
-                  .addContainerGap(25, Short.MAX_VALUE)
-              )
-            ]]></Value>
-          </LayoutCodeItem>
-        </LayoutCode>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0">
+            <Group type="102" alignment="0">
+              <EmptySpace min="-2" pref="15" max="-2"/>
+              <Component id="titleLBL" min="-2" max="-2"/>
+              <EmptySpace pref="20" max="32767"/>
+            </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="titleLBL">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Helvetica Neue" size="24" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color red="ff" green="ff" blue="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Power Wise - Add Tip Form"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+
+    <!-- MAIN PANEL -->
+    <Container class="javax.swing.JPanel" name="mainPL">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color red="cc" green="ff" blue="cc" type="rgb"/>
+        </Property>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="false"/>
       </Layout>
 
       <SubComponents>
 
-        <Component class="javax.swing.JLabel" name="headerLabel">
+        <Component class="javax.swing.JLabel" name="tipLBL">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Add Tip"/>
-            <Property name="font" type="java.awt.Font" value="Arial-BOLD-18"/>
-            <Property name="foreground" type="java.awt.Color" value="34,139,34"/>
-            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" value="Tip Description:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+              <AbsoluteConstraints x="40" y="40" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
 
-        <Component class="javax.swing.JLabel" name="tipLabel">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Tip Description:"/>
-            <Property name="font" type="java.awt.Font" value="Arial-PLAIN-14"/>
-          </Properties>
-        </Component>
+        <Container class="javax.swing.JScrollPane" name="scrollPane">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+              <AbsoluteConstraints x="180" y="40" width="240" height="100"/>
+            </Constraint>
+          </Constraints>
 
-        <Container class="javax.swing.JScrollPane" name="tipScrollPane">
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+
           <SubComponents>
-            <Component class="javax.swing.JTextArea" name="tipTextArea">
+            <Component class="javax.swing.JTextArea" name="tipTA">
               <Properties>
-                <Property name="editable" type="boolean" value="true"/>
-                <Property name="columns" type="int" value="20"/>
-                <Property name="rows" type="int" value="5"/>
-                <Property name="lineWrap" type="boolean" value="true"/>
-                <Property name="wrapStyleWord" type="boolean" value="true"/>
-                <Property name="font" type="java.awt.Font" value="Arial-PLAIN-14"/>
-                <Property name="background" type="java.awt.Color" value="255,255,255"/>
+                <Property name="columns" value="20"/>
+                <Property name="rows" value="5"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
 
-        <Component class="javax.swing.JCheckBox" name="adoptedCheckBox">
+        <Component class="javax.swing.JCheckBox" name="adoptedCB">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Adopted"/>
-            <Property name="font" type="java.awt.Font" value="Arial-PLAIN-14"/>
+            <Property name="text" value="Adopted"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+              <AbsoluteConstraints x="180" y="150" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
 
-        <Component class="javax.swing.JButton" name="saveButton">
+        <Component class="javax.swing.JButton" name="addBTN">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Save"/>
-            <Property name="font" type="java.awt.Font" value="Arial-PLAIN-14"/>
-            <Property name="background" type="java.awt.Color" value="34,139,34"/>
-            <Property name="foreground" type="java.awt.Color" value="255,255,255"/>
+            <Property name="text" value="ADD"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+              <AbsoluteConstraints x="40" y="250" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
 
-        <Component class="javax.swing.JButton" name="cancelButton">
+        <Component class="javax.swing.JButton" name="saveBTN">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cancel"/>
-            <Property name="font" type="java.awt.Font" value="Arial-PLAIN-14"/>
-            <Property name="background" type="java.awt.Color" value="34,139,34"/>
-            <Property name="foreground" type="java.awt.Color" value="255,255,255"/>
+            <Property name="text" value="SAVE"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+              <AbsoluteConstraints x="150" y="250" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+
+        <Component class="javax.swing.JButton" name="backBTN">
+          <Properties>
+            <Property name="text" value="BACK"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+              <AbsoluteConstraints x="260" y="250" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
 
       </SubComponents>
-
     </Container>
   </SubComponents>
+
 </Form>
