@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Form version="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Tips Dashboard"/>
   </Properties>
+
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
@@ -19,23 +20,72 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-        <Component class="javax.swing.JPanel" name="jPanel1" />
+        <Component id="jPanel1" alignment="0" pref="500" max="32767"/>
       </Group>
     </DimensionLayout>
+
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-        <Component class="javax.swing.JPanel" name="jPanel1" />
+        <Component id="jPanel1" alignment="0" pref="400" max="32767"/>
       </Group>
     </DimensionLayout>
   </Layout>
 
   <SubComponents>
-    <Component class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" value="245,255,245"/>
-        <Property name="layout" type="javax.swing.GroupLayout" editor="org.netbeans.modules.form.editors.LayoutCodeEditor"/>
       </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGroupLayout">
+        <LayoutCode>
+
+          <!-- Horizontal -->
+          <LayoutCodeItem name="HorizontalGroup" type="java.lang.String">
+            <Value><![CDATA[
+              addGroup(
+                createParallelGroup()
+                  .addComponent(headerLabel, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                  .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                  .addGroup(
+                    createSequentialGroup()
+                      .addComponent(addTipButton)
+                      .addGap(15)
+                      .addComponent(markAdoptedButton)
+                      .addGap(15)
+                      .addComponent(backButton)
+                  ),
+                25, 475, Short.MAX_VALUE
+              )
+            ]]></Value>
+          </LayoutCodeItem>
+
+          <!-- Vertical -->
+          <LayoutCodeItem name="VerticalGroup" type="java.lang.String">
+            <Value><![CDATA[
+              addGroup(
+                createSequentialGroup()
+                  .addGap(20)
+                  .addComponent(headerLabel)
+                  .addGap(20)
+                  .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
+                  .addGap(30)
+                  .addGroup(
+                    createParallelGroup(GroupLayout.BASELINE)
+                      .addComponent(addTipButton)
+                      .addComponent(markAdoptedButton)
+                      .addComponent(backButton)
+                  )
+                  .addContainerGap(30, Short.MAX_VALUE)
+              )
+            ]]></Value>
+          </LayoutCodeItem>
+
+        </LayoutCode>
+      </Layout>
+
       <SubComponents>
+
         <Component class="javax.swing.JLabel" name="headerLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Tips Dashboard"/>
@@ -45,12 +95,13 @@
           </Properties>
         </Component>
 
-        <Component class="javax.swing.JScrollPane" name="jScrollPane1">
+        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <SubComponents>
             <Component class="javax.swing.JTextArea" name="tipsTextArea">
               <Properties>
-                <Property name="text" type="java.lang.String" value="💡 Sample Tip 1: Save water by turning off the tap while brushing.\n🌿 Sample Tip 2: Use reusable bags when shopping.\n💡 Sample Tip 3: Unplug electronics when not in use."/>
                 <Property name="editable" type="boolean" value="false"/>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="rows" type="int" value="5"/>
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="wrapStyleWord" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" value="Arial-PLAIN-14"/>
@@ -58,20 +109,20 @@
               </Properties>
             </Component>
           </SubComponents>
-        </Component>
+        </Container>
 
-        <Component class="javax.swing.JButton" name="markAdoptedButton">
+        <Component class="javax.swing.JButton" name="addTipButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Mark as Adopted"/>
+            <Property name="text" type="java.lang.String" value="Add New Tip"/>
             <Property name="font" type="java.awt.Font" value="Arial-PLAIN-14"/>
             <Property name="background" type="java.awt.Color" value="34,139,34"/>
             <Property name="foreground" type="java.awt.Color" value="255,255,255"/>
           </Properties>
         </Component>
 
-        <Component class="javax.swing.JButton" name="addTipButton">
+        <Component class="javax.swing.JButton" name="markAdoptedButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Add New Tip"/>
+            <Property name="text" type="java.lang.String" value="Mark as Adopted"/>
             <Property name="font" type="java.awt.Font" value="Arial-PLAIN-14"/>
             <Property name="background" type="java.awt.Color" value="34,139,34"/>
             <Property name="foreground" type="java.awt.Color" value="255,255,255"/>
@@ -88,6 +139,7 @@
         </Component>
 
       </SubComponents>
-    </Component>
+
+    </Container>
   </SubComponents>
 </Form>
