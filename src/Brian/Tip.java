@@ -8,7 +8,7 @@ package Brian;
  * @author apple
  */
 public class Tip {
-    
+
     private String description;
     private boolean adopted;
 
@@ -38,4 +38,3 @@ public class Tip {
         return description + (adopted ? " (Adopted)" : "");
     }
 }
-
