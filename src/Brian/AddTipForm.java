@@ -14,16 +14,42 @@ import javax.swing.*;
  */
 public class AddTipForm extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AddTipForm.class.getName());
+    private TipManager manager = new TipManager();
 
     /**
      * Creates new form AddTipForm
      */
     public AddTipForm() {
         initComponents();
-        setLocationRelativeTo(null); // center window
+        setLocationRelativeTo(null);
+        addListeners();
     }
 
+    private void addListeners() {
+
+        saveButton.addActionListener(e -> {
+            String desc = tipTextArea.getText().trim();
+            boolean adopted = adoptedCheckBox.isSelected();
+
+            if (desc.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter a tip.");
+                return;
+            }
+
+            manager.addTip(new Tip(desc, adopted));
+            JOptionPane.showMessageDialog(this, "Tip saved!");
+
+            new TipDashboardForm().setVisible(true);
+            this.dispose();
+        });
+
+        cancelButton.addActionListener(e -> {
+            new TipDashboardForm().setVisible(true);
+            this.dispose();
+        });
+    }
+
+    // -------------------- AUTO-GENERATED NETBEANS CODE --------------------
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -41,33 +67,28 @@ public class AddTipForm extends javax.swing.JFrame {
 
         jPanel1.setBackground(new Color(245, 255, 245));
 
-        // Header
         headerLabel.setFont(new Font("Arial", Font.BOLD, 18));
         headerLabel.setForeground(new Color(34, 139, 34));
         headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         headerLabel.setText("Add Tip");
 
-        // Tip label
         tipLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         tipLabel.setText("Tip Description:");
 
-        // Tip text area
         tipTextArea.setFont(new Font("Arial", Font.PLAIN, 14));
         tipTextArea.setLineWrap(true);
         tipTextArea.setWrapStyleWord(true);
         tipScrollPane.setViewportView(tipTextArea);
 
-        // Adopted checkbox
         adoptedCheckBox.setFont(new Font("Arial", Font.PLAIN, 14));
         adoptedCheckBox.setText("Adopted");
 
-        // Buttons
         saveButton.setText("Save");
         cancelButton.setText("Cancel");
         styleButton(saveButton);
         styleButton(cancelButton);
 
-        // Layout using GroupLayout
+        // Layout remains exactly the same…
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -119,34 +140,12 @@ public class AddTipForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    // Helper to style buttons
     private void styleButton(JButton button) {
         button.setFont(new Font("Arial", Font.PLAIN, 14));
         button.setBackground(new Color(34, 139, 34));
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
         button.setBorder(BorderFactory.createLineBorder(new Color(0, 100, 0)));
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        java.awt.EventQueue.invokeLater(() -> new AddTipForm().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
