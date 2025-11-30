@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Form version="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Tips Dashboard"/>
+    <Property name="title" type="java.lang.String" value="Green Tips"/>
   </Properties>
+
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
@@ -19,51 +21,98 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-        <Component class="javax.swing.JPanel" name="headerPanel"/>
-        <Component class="javax.swing.JPanel" name="mainPanel"/>
+        <Component id="headerPanel" alignment="0" pref="500" max="32767"/>
+        <Component id="mainPanel" alignment="0" pref="500" max="32767"/>
       </Group>
     </DimensionLayout>
+
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-        <Component class="javax.swing.JPanel" name="headerPanel"/>
-        <Component class="javax.swing.JPanel" name="mainPanel"/>
+        <Component id="headerPanel" alignment="0" pref="80" max="80"/>
+        <Component id="mainPanel" alignment="0" pref="320" max="32767"/>
       </Group>
     </DimensionLayout>
   </Layout>
 
   <SubComponents>
-    <!-- Header Panel -->
-    <Component class="javax.swing.JPanel" name="headerPanel">
+
+    <!-- HEADER PANEL -->
+    <Container class="javax.swing.JPanel" name="headerPanel">
       <Properties>
         <Property name="background" type="java.awt.Color" value="26,101,26"/>
-        <Property name="layout" type="javax.swing.GroupLayout" editor="org.netbeans.modules.form.editors.LayoutCodeEditor"/>
       </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGroupLayout">
+        <LayoutCode>
+
+          <LayoutCodeItem name="HorizontalGroup" type="java.lang.String">
+            <Value><![CDATA[
+              addGroup(
+                createParallelGroup(GroupLayout.Alignment.CENTER)
+                  .addComponent(headingLabel, GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+              )
+            ]]></Value>
+          </LayoutCodeItem>
+
+          <LayoutCodeItem name="VerticalGroup" type="java.lang.String">
+            <Value><![CDATA[
+              addGroup(
+                createSequentialGroup()
+                  .addGap(20)
+                  .addComponent(headingLabel)
+                  .addGap(20)
+              )
+            ]]></Value>
+          </LayoutCodeItem>
+
+        </LayoutCode>
+      </Layout>
+
       <SubComponents>
         <Component class="javax.swing.JLabel" name="headingLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Tips Dashboard"/>
+            <Property name="text" type="java.lang.String" value="Green Tips"/>
             <Property name="font" type="java.awt.Font" value="Futura-PLAIN-22"/>
             <Property name="foreground" type="java.awt.Color" value="255,255,255"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
         </Component>
       </SubComponents>
-    </Component>
 
-    <!-- Main Panel -->
-    <Component class="javax.swing.JPanel" name="mainPanel">
+    </Container>
+
+    <!-- MAIN PANEL -->
+    <Container class="javax.swing.JPanel" name="mainPanel">
       <Properties>
         <Property name="layout" type="org.netbeans.lib.awtextra.AbsoluteLayout"/>
+        <Property name="background" type="java.awt.Color" value="240,255,240"/>
       </Properties>
+
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btnNextForm">
+
+        <Component class="javax.swing.JButton" name="btnDashboard">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Tip Dashboard"/>
+            <Property name="text" type="java.lang.String" value="Open Tips Dashboard"/>
             <Property name="font" type="java.awt.Font" value="Helvetica Neue-PLAIN-15"/>
             <Property name="background" type="java.awt.Color" value="26,101,26"/>
             <Property name="foreground" type="java.awt.Color" value="242,242,242"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors.BorderEditor"/>
           </Properties>
-      </Component>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.lib.awtextra.AbsoluteConstraints" value="150 60 200 40"/>
+          </Constraints>
+        </Component>
+
+        <Component class="javax.swing.JButton" name="btnAddTip">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Add New Tip"/>
+            <Property name="font" type="java.awt.Font" value="Helvetica Neue-PLAIN-15"/>
+            <Property name="background" type="java.awt.Color" value="26,101,26"/>
+            <Property name="foreground" type="java.awt.Color" value="242,242,242"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.lib.awtextra.AbsoluteConstraints" value="150 120 200 40"/>
+          </Constraints>
+        </Component>
 
         <Component class="javax.swing.JButton" name="btnMainMenu">
           <Properties>
@@ -71,10 +120,16 @@
             <Property name="font" type="java.awt.Font" value="Helvetica Neue-PLAIN-15"/>
             <Property name="background" type="java.awt.Color" value="26,101,26"/>
             <Property name="foreground" type="java.awt.Color" value="242,242,242"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors.BorderEditor"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.lib.awtextra.AbsoluteConstraints" value="150 180 200 40"/>
+          </Constraints>
         </Component>
+
       </SubComponents>
-    </Component>
+
+    </Container>
+
   </SubComponents>
+
 </Form>
