@@ -4,8 +4,10 @@
  */
 package Brian;
 
+import javax.swing.*;
+
 /**
- *
+ * Add Tip Form
  * @author apple
  */
 public class AddTipForm extends javax.swing.JFrame {
@@ -13,88 +15,126 @@ public class AddTipForm extends javax.swing.JFrame {
     private TipManager manager;
 
     public AddTipForm() {
-        manager = new TipManager();  // Load existing tips
         initComponents();
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // center window
+        manager = new TipManager();
     }
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
-
-        jLabel1 = new javax.swing.JLabel();
-        txtDescription = new javax.swing.JTextField();
-        chkAdopted = new javax.swing.JCheckBox();
-        btnSave = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        headerLabel = new javax.swing.JLabel();
+        tipLabel = new javax.swing.JLabel();
+        tipScrollPane = new javax.swing.JScrollPane();
+        tipTextArea = new javax.swing.JTextArea();
+        adoptedCheckBox = new javax.swing.JCheckBox();
+        saveButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Add Tip");
 
-        jLabel1.setText("Tip Description:");
+        jPanel1.setBackground(new java.awt.Color(245, 255, 245));
 
-        chkAdopted.setText("Already Adopted");
+        headerLabel.setFont(new java.awt.Font("Arial", 1, 18));
+        headerLabel.setForeground(new java.awt.Color(34, 139, 34));
+        headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        headerLabel.setText("Add Tip");
 
-        btnSave.setText("Save");
-        btnSave.addActionListener(evt -> saveTip());
+        tipLabel.setFont(new java.awt.Font("Arial", 0, 14));
+        tipLabel.setText("Tip Description:");
 
-        btnCancel.setText("Cancel");
-        btnCancel.addActionListener(evt -> {
-            new TipsDashboardForm().setVisible(true);
+        tipTextArea.setFont(new java.awt.Font("Arial", 0, 14));
+        tipTextArea.setLineWrap(true);
+        tipTextArea.setWrapStyleWord(true);
+        tipScrollPane.setViewportView(tipTextArea);
+
+        adoptedCheckBox.setFont(new java.awt.Font("Arial", 0, 14));
+        adoptedCheckBox.setText("Adopted");
+
+        saveButton.setText("Save");
+        saveButton.addActionListener(evt -> saveTip());
+
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(evt -> {
+            // return to dashboard (open it)
+            new TipDashboardForm().setVisible(true);
             this.dispose();
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chkAdopted)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSave)
-                        .addGap(20, 20, 20)
-                        .addComponent(btnCancel)))
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(headerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                    .addComponent(tipLabel)
+                    .addComponent(tipScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                    .addComponent(adoptedCheckBox)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(saveButton)
+                        .addGap(20)
+                        .addComponent(cancelButton)))
+                .addGap(30))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(25)
+                .addComponent(headerLabel)
+                .addGap(15)
+                .addComponent(tipLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tipScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15)
+                .addComponent(adoptedCheckBox)
+                .addGap(25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveButton)
+                    .addComponent(cancelButton))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(chkAdopted)
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave)
-                    .addComponent(btnCancel))
-                .addContainerGap(25, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }
 
     private void saveTip() {
-        String description = txtDescription.getText().trim();
-
+        String description = tipTextArea.getText().trim();
         if (description.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a tip description.", "Validation", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        Tip tip = new Tip(description, chkAdopted.isSelected());
-        manager.addTip(tip);
+        Tip t = new Tip(description, adoptedCheckBox.isSelected());
+        manager.addTip(t);
         manager.saveTips();
 
-        new TipsDashboardForm().setVisible(true);
+        // Return to dashboard and refresh
+        TipDashboardForm dash = new TipDashboardForm();
+        dash.setVisible(true);
         this.dispose();
     }
 
     // Variables
-    private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnSave;
-    private
+    private javax.swing.JCheckBox adoptedCheckBox;
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JLabel headerLabel;
+    private javax.swing.JButton saveButton;
+    private javax.swing.JLabel tipLabel;
+    private javax.swing.JScrollPane tipScrollPane;
+    private javax.swing.JTextArea tipTextArea;
+    private javax.swing.JPanel jPanel1;
+}
