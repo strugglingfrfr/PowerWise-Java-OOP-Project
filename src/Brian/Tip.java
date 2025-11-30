@@ -1,20 +1,17 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Tip.java
+ * Represents a single Green Tip.
+ * 
+ * @author apple
  */
 package Brian;
 
-/**
- *
- * @author apple
- */
-public class Tip {
+import java.io.Serializable;
+
+public class Tip implements Serializable {
 
     private String description;
     private boolean adopted;
-
-    public Tip() {
-    }
 
     public Tip(String description, boolean adopted) {
         this.description = description;
@@ -23,10 +20,6 @@ public class Tip {
 
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public boolean isAdopted() {
@@ -39,6 +32,6 @@ public class Tip {
 
     @Override
     public String toString() {
-        return description + " | Adopted: " + adopted;
+        return description + (adopted ? " (Adopted)" : "");
     }
 }
