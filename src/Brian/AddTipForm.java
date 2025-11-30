@@ -10,9 +10,10 @@ package Brian;
  */
 public class AddTipForm extends javax.swing.JFrame {
 
-    private TipManager manager = new TipManager();
+    private TipManager manager;
 
     public AddTipForm() {
+        manager = new TipManager();  // Load existing tips
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -26,7 +27,7 @@ public class AddTipForm extends javax.swing.JFrame {
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Tip Description:");
 
@@ -81,7 +82,9 @@ public class AddTipForm extends javax.swing.JFrame {
     private void saveTip() {
         String description = txtDescription.getText().trim();
 
-        if (description.isEmpty()) return;
+        if (description.isEmpty()) {
+            return;
+        }
 
         Tip tip = new Tip(description, chkAdopted.isSelected());
         manager.addTip(tip);
@@ -94,7 +97,4 @@ public class AddTipForm extends javax.swing.JFrame {
     // Variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
-    private javax.swing.JCheckBox chkAdopted;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField txtDescription;
-}
+    private
