@@ -14,9 +14,10 @@ import javax.swing.DefaultListModel;
 public class TipsDashboardForm extends javax.swing.JFrame {
 
     private DefaultListModel<String> model = new DefaultListModel<>();
-    private TipManager manager = new TipManager();
+    private TipManager manager;
 
     public TipsDashboardForm() {
+        manager = new TipManager();  // Load saved tips
         initComponents();
         setLocationRelativeTo(null);
         loadTips();
@@ -32,7 +33,7 @@ public class TipsDashboardForm extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
         headerLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         headerLabel.setFont(new java.awt.Font("Futura", 0, 22));
         headerLabel.setText("Tips Dashboard");
