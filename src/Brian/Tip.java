@@ -1,15 +1,14 @@
 /*
  * Tip.java
  * Represents a single Green Tip.
- * 
- * @author apple
  */
 package Brian;
 
-import java.io.Serializable;
-
-public class Tip implements Serializable {
-
+/**
+ * @author apple
+ */
+public class Tip {
+    
     private String description;
     private boolean adopted;
 
@@ -20,6 +19,10 @@ public class Tip implements Serializable {
 
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public boolean isAdopted() {
@@ -35,3 +38,4 @@ public class Tip implements Serializable {
         return description + (adopted ? " (Adopted)" : "");
     }
 }
+
