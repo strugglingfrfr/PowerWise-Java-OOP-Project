@@ -4,163 +4,122 @@
  */
 package Brian;
 
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.*;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 
 /**
  *
  * @author apple
  */
-public class TipDashboardForm extends javax.swing.JFrame {
+public class TipsDashboardForm extends javax.swing.JFrame {
 
+    private DefaultListModel<String> model = new DefaultListModel<>();
     private TipManager manager = new TipManager();
 
-    /**
-     * Creates new form TipDashboardForm
-     */
-    public TipDashboardForm() {
+    public TipsDashboardForm() {
         initComponents();
         setLocationRelativeTo(null);
-        loadTipsIntoTextArea();
-        addListeners();
+        loadTips();
     }
 
-    private void loadTipsIntoTextArea() {
-        tipsTextArea.setText(""); // clear
-        for (int i = 0; i < manager.getTips().size(); i++) {
-            Tip t = manager.getTips().get(i);
-            tipsTextArea.append((i + 1) + ". " + t.getDescription() + " (Adopted: " + t.isAdopted() + ")\n");
-        }
-    }
+    @SuppressWarnings("unchecked")
+    private void initComponents() {
 
-    private void addListeners() {
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstTips = new javax.swing.JList<>();
+        btnAddTip = new javax.swing.JButton();
+        btnAdopt = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+        headerLabel = new javax.swing.JLabel();
 
-        addTipButton.addActionListener(e -> {
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        headerLabel.setFont(new java.awt.Font("Futura", 0, 22));
+        headerLabel.setText("Tips Dashboard");
+
+        lstTips.setFont(new java.awt.Font("Helvetica Neue", 0, 14));
+        jScrollPane1.setViewportView(lstTips);
+
+        btnAddTip.setText("Add New Tip");
+        btnAddTip.addActionListener(evt -> {
             new AddTipForm().setVisible(true);
             this.dispose();
         });
 
-        backButton.addActionListener(e -> {
+        btnAdopt.setText("Mark as Adopted");
+        btnAdopt.addActionListener(evt -> adoptSelectedTip());
+
+        btnBack.setText("Back");
+        btnBack.addActionListener(evt -> {
             new TipGUI().setVisible(true);
             this.dispose();
         });
 
-        markAdoptedButton.addActionListener(e -> {
-            String input = JOptionPane.showInputDialog(this, "Enter tip number to mark adopted:");
-            try {
-                int index = Integer.parseInt(input) - 1;
-                manager.markTipAsAdopted(index);
-                loadTipsIntoTextArea();
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Invalid number.");
-            }
-        });
-    }
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
 
-    // ---------------- AUTO-GENERATED NETBEANS CODE BELOW ----------------
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        jPanel1 = new JPanel();
-        headerLabel = new JLabel();
-        jScrollPane1 = new JScrollPane();
-        tipsTextArea = new JTextArea();
-        markAdoptedButton = new JButton();
-        addTipButton = new JButton();
-        backButton = new JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBackground(new Color(245, 255, 245));
-
-        headerLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        headerLabel.setForeground(new Color(34, 139, 34));
-        headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        headerLabel.setText("Tips Dashboard");
-
-        tipsTextArea.setEditable(false);
-        tipsTextArea.setBackground(new Color(240, 255, 240));
-        tipsTextArea.setColumns(20);
-        tipsTextArea.setRows(5);
-        tipsTextArea.setFont(new Font("Arial", Font.PLAIN, 14));
-        tipsTextArea.setLineWrap(true);
-        tipsTextArea.setWrapStyleWord(true);
-        jScrollPane1.setViewportView(tipsTextArea);
-
-        markAdoptedButton.setText("Mark as Adopted");
-        styleButton(markAdoptedButton);
-
-        addTipButton.setText("Add New Tip");
-        styleButton(addTipButton);
-
-        backButton.setText("Back to Menu");
-        styleButton(backButton);
-
-        // Layout code unchanged…
-        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
-                .addGap(20, 20, 20))
-            .addComponent(headerLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(markAdoptedButton, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(addTipButton, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(backButton, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(headerLabel)
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(markAdoptedButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addTipButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(backButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(headerLabel)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAddTip)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAdopt)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBack)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(headerLabel)
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddTip)
+                    .addComponent(btnAdopt)
+                    .addComponent(btnBack))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void styleButton(JButton button) {
-        button.setFont(new Font("Arial", Font.PLAIN, 14));
-        button.setBackground(new Color(34, 139, 34));
-        button.setForeground(Color.WHITE);
-        button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(new Color(0, 100, 0)));
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton addTipButton;
-    private JButton backButton;
-    private JLabel headerLabel;
-    private JScrollPane jScrollPane1;
-    private JPanel jPanel1;
-    private JButton markAdoptedButton;
-    private JTextArea tipsTextArea;
-    // End of variables declaration//GEN-END:variables
+    private void loadTips() {
+        model.clear();
+        ArrayList<Tip> tips = manager.getTips();
+
+        for (Tip t : tips) {
+            String adoptedMark = t.isAdopted() ? " (Adopted)" : "";
+            model.addElement(t.getDescription() + adoptedMark);
+        }
+
+        lstTips.setModel(model);
+    }
+
+    private void adoptSelectedTip() {
+        int index = lstTips.getSelectedIndex();
+        if (index == -1) return;
+
+        Tip tip = manager.getTips().get(index);
+        tip.setAdopted(true);
+
+        manager.saveTips();
+        loadTips();
+    }
+
+    // Variables
+    private javax.swing.JButton btnAddTip;
+    private javax.swing.JButton btnAdopt;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JLabel headerLabel;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> lstTips;
 }
