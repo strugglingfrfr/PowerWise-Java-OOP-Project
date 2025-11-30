@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Form version="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -19,23 +19,72 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-        <Component class="javax.swing.JPanel" name="jPanel1"/>
+        <Component id="jPanel1" alignment="0" pref="400" max="32767"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-        <Component class="javax.swing.JPanel" name="jPanel1"/>
+        <Component id="jPanel1" alignment="0" pref="300" max="32767"/>
       </Group>
     </DimensionLayout>
   </Layout>
 
   <SubComponents>
-    <Component class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" value="245,255,245"/>
-        <Property name="layout" type="javax.swing.GroupLayout" editor="org.netbeans.modules.form.editors.LayoutCodeEditor"/>
       </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGroupLayout">
+        <Properties/>
+        <Constraints/>
+        <LayoutCode>
+          <LayoutCodeItem name="HorizontalGroup" type="java.lang.String">
+            <Value><![CDATA[
+              addGroup(
+                createParallelGroup()
+                  .addComponent(headerLabel, GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                  .addComponent(tipLabel)
+                  .addComponent(tipScrollPane, GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                  .addComponent(adoptedCheckBox)
+                  .addGroup(
+                    createSequentialGroup()
+                      .addComponent(saveButton)
+                      .addGap(20)
+                      .addComponent(cancelButton)
+                  ),
+                30, 370, Short.MAX_VALUE
+              )
+            ]]></Value>
+          </LayoutCodeItem>
+
+          <LayoutCodeItem name="VerticalGroup" type="java.lang.String">
+            <Value><![CDATA[
+              addGroup(
+                createSequentialGroup()
+                  .addGap(25)
+                  .addComponent(headerLabel)
+                  .addGap(15)
+                  .addComponent(tipLabel)
+                  .addPreferredGap(LayoutStyle.UNRELATED)
+                  .addComponent(tipScrollPane, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+                  .addGap(15)
+                  .addComponent(adoptedCheckBox)
+                  .addGap(25)
+                  .addGroup(
+                    createParallelGroup(GroupLayout.BASELINE)
+                      .addComponent(saveButton)
+                      .addComponent(cancelButton)
+                  )
+                  .addContainerGap(25, Short.MAX_VALUE)
+              )
+            ]]></Value>
+          </LayoutCodeItem>
+        </LayoutCode>
+      </Layout>
+
       <SubComponents>
+
         <Component class="javax.swing.JLabel" name="headerLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Add Tip"/>
@@ -52,12 +101,13 @@
           </Properties>
         </Component>
 
-        <Component class="javax.swing.JScrollPane" name="tipScrollPane">
+        <Container class="javax.swing.JScrollPane" name="tipScrollPane">
           <SubComponents>
             <Component class="javax.swing.JTextArea" name="tipTextArea">
               <Properties>
-                <Property name="text" type="java.lang.String" value=""/>
                 <Property name="editable" type="boolean" value="true"/>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="rows" type="int" value="5"/>
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="wrapStyleWord" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" value="Arial-PLAIN-14"/>
@@ -65,7 +115,7 @@
               </Properties>
             </Component>
           </SubComponents>
-        </Component>
+        </Container>
 
         <Component class="javax.swing.JCheckBox" name="adoptedCheckBox">
           <Properties>
@@ -93,20 +143,7 @@
         </Component>
 
       </SubComponents>
-    </Component>
-  </SubComponents>
-</Form>
 
-  <Layout>
-    <DimensionLayout dim="0">
-      <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
-      </Group>
-    </DimensionLayout>
-    <DimensionLayout dim="1">
-      <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="300" max="32767" attributes="0"/>
-      </Group>
-    </DimensionLayout>
-  </Layout>
+    </Container>
+  </SubComponents>
 </Form>
