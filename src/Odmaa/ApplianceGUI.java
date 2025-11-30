@@ -96,7 +96,7 @@ public class ApplianceGUI extends javax.swing.JFrame {
 
         backgroundLBL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/power/wise/app/icons/appliancebackground.jpg"))); // NOI18N
         backgroundLBL.setText("jLabel1");
-        mainPanel.add(backgroundLBL, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, -2, 930, 430));
+        mainPanel.add(backgroundLBL, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, -2, 930, 530));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
