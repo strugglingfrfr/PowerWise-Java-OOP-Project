@@ -4,54 +4,40 @@
  */
 package Brian;
 
-import java.util.ArrayList;
-import javax.swing.DefaultListModel;
-
 /**
  *
  * @author apple
  */
-public class TipsDashboardForm extends javax.swing.JFrame {
+public class AddTipForm extends javax.swing.JFrame {
 
-    private DefaultListModel<String> model = new DefaultListModel<>();
     private TipManager manager = new TipManager();
 
-    public TipsDashboardForm() {
+    public AddTipForm() {
         initComponents();
         setLocationRelativeTo(null);
-        loadTips();
     }
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lstTips = new javax.swing.JList<>();
-        btnAddTip = new javax.swing.JButton();
-        btnAdopt = new javax.swing.JButton();
-        btnBack = new javax.swing.JButton();
-        headerLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        txtDescription = new javax.swing.JTextField();
+        chkAdopted = new javax.swing.JCheckBox();
+        btnSave = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        headerLabel.setFont(new java.awt.Font("Futura", 0, 22));
-        headerLabel.setText("Tips Dashboard");
+        jLabel1.setText("Tip Description:");
 
-        lstTips.setFont(new java.awt.Font("Helvetica Neue", 0, 14));
-        jScrollPane1.setViewportView(lstTips);
+        chkAdopted.setText("Already Adopted");
 
-        btnAddTip.setText("Add New Tip");
-        btnAddTip.addActionListener(evt -> {
-            new AddTipForm().setVisible(true);
-            this.dispose();
-        });
+        btnSave.setText("Save");
+        btnSave.addActionListener(evt -> saveTip());
 
-        btnAdopt.setText("Mark as Adopted");
-        btnAdopt.addActionListener(evt -> adoptSelectedTip());
-
-        btnBack.setText("Back");
-        btnBack.addActionListener(evt -> {
-            new TipGUI().setVisible(true);
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(evt -> {
+            new TipsDashboardForm().setVisible(true);
             this.dispose();
         });
 
@@ -61,65 +47,54 @@ public class TipsDashboardForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(headerLabel)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chkAdopted)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAddTip)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAdopt)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBack)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addComponent(btnSave)
+                        .addGap(20, 20, 20)
+                        .addComponent(btnCancel)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
-                .addComponent(headerLabel)
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addComponent(chkAdopted)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddTip)
-                    .addComponent(btnAdopt)
-                    .addComponent(btnBack))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(btnSave)
+                    .addComponent(btnCancel))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
     }
 
-    private void loadTips() {
-        model.clear();
-        ArrayList<Tip> tips = manager.getTips();
+    private void saveTip() {
+        String description = txtDescription.getText().trim();
 
-        for (Tip t : tips) {
-            String adoptedMark = t.isAdopted() ? " (Adopted)" : "";
-            model.addElement(t.getDescription() + adoptedMark);
-        }
+        if (description.isEmpty()) return;
 
-        lstTips.setModel(model);
-    }
-
-    private void adoptSelectedTip() {
-        int index = lstTips.getSelectedIndex();
-        if (index == -1) return;
-
-        Tip tip = manager.getTips().get(index);
-        tip.setAdopted(true);
-
+        Tip tip = new Tip(description, chkAdopted.isSelected());
+        manager.addTip(tip);
         manager.saveTips();
-        loadTips();
+
+        new TipsDashboardForm().setVisible(true);
+        this.dispose();
     }
 
     // Variables
-    private javax.swing.JButton btnAddTip;
-    private javax.swing.JButton btnAdopt;
-    private javax.swing.JButton btnBack;
-    private javax.swing.JLabel headerLabel;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> lstTips;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JCheckBox chkAdopted;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField txtDescription;
 }
