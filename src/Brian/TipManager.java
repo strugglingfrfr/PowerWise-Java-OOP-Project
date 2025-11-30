@@ -12,10 +12,12 @@ import java.util.ArrayList;
  */
 public class TipManager {
 
-    private ArrayList<Tip> tips = new ArrayList<>();
-    private final String FILE_NAME = "tips.txt";
+    private final ArrayList<Tip> tips = new ArrayList<>();
+    private final File dataFile;
 
     public TipManager() {
+        // store in project working directory; change path if you prefer /data folder
+        this.dataFile = new File("tips.txt");
         loadTips();
     }
 
@@ -23,8 +25,8 @@ public class TipManager {
         return tips;
     }
 
-    public void addTip(Tip tip) {
-        tips.add(tip);
+    public void addTip(Tip t) {
+        tips.add(t);
     }
 
     public void removeTip(int index) {
@@ -34,37 +36,55 @@ public class TipManager {
     }
 
     public void saveTips() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME))) {
-
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(dataFile))) {
             for (Tip t : tips) {
-                bw.write(t.getDescription() + ";" + t.isAdopted());
+                String line = escape(t.getDescription()) + ";" + Boolean.toString(t.isAdopted());
+                bw.write(line);
                 bw.newLine();
             }
-
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.err.println("Error saving tips: " + ex.getMessage());
         }
     }
 
     public void loadTips() {
         tips.clear();
+        if (!dataFile.exists()) return;
 
-        File f = new File(FILE_NAME);
-        if (!f.exists()) return;
-
-        try (BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))) {
-
+        try (BufferedReader br = new BufferedReader(new FileReader(dataFile))) {
             String line;
             while ((line = br.readLine()) != null) {
-
-                String[] parts = line.split(";");
+                String[] parts = line.split(";", 2);
                 if (parts.length == 2) {
-                    tips.add(new Tip(parts[0], Boolean.parseBoolean(parts[1])));
+                    String desc = unescape(parts[0]);
+                    boolean adopted = Boolean.parseBoolean(parts[1]);
+                    tips.add(new Tip(desc, adopted));
                 }
             }
-
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.err.println("Error loading tips: " + ex.getMessage());
         }
+    }
+
+    // simple escaping to allow semicolons/newlines in description if needed
+    private String escape(String s) {
+        return s.replace("\\", "\\\\").replace(";", "\\;");
+    }
+
+    private String unescape(String s) {
+        StringBuilder sb = new StringBuilder();
+        boolean slash = false;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (slash) {
+                sb.append(c);
+                slash = false;
+            } else if (c == '\\') {
+                slash = true;
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
     }
 }
