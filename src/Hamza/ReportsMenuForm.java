@@ -4,23 +4,116 @@
  */
 package Hamza;
 
-import power.wise.app.PowerWiseGUI;
-
+import Odmaa.Appliance;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 /**
  *
  * @author apple
  */
 public class ReportsMenuForm extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ReportsMenuForm.class.getName());
 
+    private static final java.util.logging.Logger logger =
+            java.util.logging.Logger.getLogger(ReportsMenuForm.class.getName());
+
+    // Manager to build reports
+    private ReportManager reportManager = new ReportManager();
+    
+    // Stores the last generated report
+    private Report currentReport;
+    
+    
     /**
      * Creates new form ReportGUI
      */
+    
+
     public ReportsMenuForm() {
         initComponents();
+        loadAppliancesIntoDropdown();
+        btnViewReport.setVisible(false); // hide view button initially
     }
 
+    // Loads appliance names from applianceList.txt into the combo box
+    private void loadAppliancesIntoDropdown() {
+        cmbAppliance.removeAllItems();
+        cmbAppliance.addItem("Choose appliance…");
+
+        try {
+            File f = new File("applianceList.txt");
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+
+            String line;
+            while ((line = br.readLine()) != null) {
+
+                if (line.startsWith("Appliance Name: ")) {
+                    String name = line.substring("Appliance Name: ".length()).trim();
+                    cmbAppliance.addItem(name);
+                }
+            }
+            br.close();
+
+        } catch (Exception e) {
+            System.out.println("Error loading appliances: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Reads wattage, hours, energy from Odmaa's applianceList.txt
+     */
+    private Appliance loadFullApplianceFromFile(String nameToFind) {
+
+        try {
+            File f = new File("applianceList.txt");
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+
+                if (line.startsWith("Appliance Name: ")) {
+
+                    String name = line.substring("Appliance Name: ".length()).trim();
+
+                    if (name.equalsIgnoreCase(nameToFind)) {
+
+                        String wattLine   = br.readLine();  // Wattage
+                        String hrsLine    = br.readLine();  // Hours of Usage
+                        String energyLine = br.readLine();  // Energy Usage
+
+                        double watt = Double.parseDouble(
+                                wattLine.substring("Wattage: ".length()).trim());
+
+                        double hrs = Double.parseDouble(
+                                hrsLine.substring("Hours of Usage: ".length()).trim());
+
+                        double energy = Double.parseDouble(
+                                energyLine.substring("Energy Usage: ".length()).trim());
+
+                        br.close();
+
+                        // Use setters so we don’t depend on a specific constructor
+                        Appliance a = new Appliance();
+                        a.setApplianceName(name);
+                        a.setWattage(watt);
+                        a.setHours(hrs);
+                        a.setEnergyUsage(energy);
+
+                        return a;
+                    }
+                }
+            }
+
+            br.close();
+        } catch (Exception e) {
+            System.out.println("Error reading appliance details: " + e.getMessage());
+        }
+
+        return null;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,11 +128,11 @@ public class ReportsMenuForm extends javax.swing.JFrame {
         MainPanel = new javax.swing.JPanel();
         lblSelector = new javax.swing.JLabel();
         cmbAppliance = new javax.swing.JComboBox<>();
-        btnBack = new javax.swing.JButton();
+        btnViewReport = new javax.swing.JButton();
         btnGenerateReport1 = new javax.swing.JButton();
-        lblStatus = new javax.swing.JLabel();
         lblback = new javax.swing.JLabel();
         Icon1 = new javax.swing.JLabel();
+        btnBack1 = new javax.swing.JButton();
         backgroundLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,7 +166,7 @@ public class ReportsMenuForm extends javax.swing.JFrame {
         MainPanel.add(lblSelector, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 110, 30));
 
         cmbAppliance.setForeground(new java.awt.Color(26, 101, 26));
-        cmbAppliance.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose appliance…", "Washing Machine", "Heater", "Laptop", "Fridge" }));
+        cmbAppliance.setModel(new javax.swing.DefaultComboBoxModel<>());
         cmbAppliance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbApplianceActionPerformed(evt);
@@ -81,34 +174,29 @@ public class ReportsMenuForm extends javax.swing.JFrame {
         });
         MainPanel.add(cmbAppliance, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, -1, 30));
 
-        btnBack.setBackground(new java.awt.Color(26, 101, 26));
-        btnBack.setFont(new java.awt.Font("Helvetica Neue", 0, 15)); // NOI18N
-        btnBack.setForeground(new java.awt.Color(242, 242, 242));
-        btnBack.setText("Back");
-        btnBack.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
+        btnViewReport.setBackground(new java.awt.Color(26, 101, 26));
+        btnViewReport.setFont(new java.awt.Font("Helvetica Neue", 0, 15)); // NOI18N
+        btnViewReport.setForeground(new java.awt.Color(242, 242, 242));
+        btnViewReport.setText("View Report");
+        btnViewReport.setBorder(null);
+        btnViewReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
+                btnViewReportActionPerformed(evt);
             }
         });
-        MainPanel.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 170, 70));
+        MainPanel.add(btnViewReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, 170, 70));
 
         btnGenerateReport1.setBackground(new java.awt.Color(26, 101, 26));
         btnGenerateReport1.setFont(new java.awt.Font("Helvetica Neue", 0, 15)); // NOI18N
         btnGenerateReport1.setForeground(new java.awt.Color(242, 242, 242));
         btnGenerateReport1.setText("Generate Report");
-        btnGenerateReport1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnGenerateReport1.setBorder(null);
         btnGenerateReport1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerateReport1ActionPerformed(evt);
             }
         });
         MainPanel.add(btnGenerateReport1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 170, 70));
-
-        lblStatus.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        lblStatus.setText("       Report Generated");
-        lblStatus.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        MainPanel.add(lblStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 220, 60));
 
         lblback.setBackground(new java.awt.Color(26, 101, 26));
         lblback.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -117,6 +205,18 @@ public class ReportsMenuForm extends javax.swing.JFrame {
 
         Icon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/power/wise/app/icons/reportGenerate.png"))); // NOI18N
         MainPanel.add(Icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, -1, -1));
+
+        btnBack1.setBackground(new java.awt.Color(26, 101, 26));
+        btnBack1.setFont(new java.awt.Font("Helvetica Neue", 0, 15)); // NOI18N
+        btnBack1.setForeground(new java.awt.Color(242, 242, 242));
+        btnBack1.setText("Back");
+        btnBack1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnBack1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBack1ActionPerformed(evt);
+            }
+        });
+        MainPanel.add(btnBack1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 170, 70));
 
         backgroundLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/power/wise/app/icons/ReportsBackground.jpg"))); // NOI18N
         MainPanel.add(backgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 750, 420));
@@ -143,19 +243,47 @@ public class ReportsMenuForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbApplianceActionPerformed
 
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+    private void btnViewReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewReportActionPerformed
         // TODO add your handling code here:
-        new ReportGUI().setVisible(true);
+       ViewReportForm v = new ViewReportForm(currentReport);
+        v.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnBackActionPerformed
+    }//GEN-LAST:event_btnViewReportActionPerformed
 
     private void btnGenerateReport1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReport1ActionPerformed
-        // TODO add your handling code here:
-        new ViewReportForm().setVisible(true);
-        this.dispose();
+       
+        String selected = cmbAppliance.getSelectedItem().toString();
+
+        if (selected.equals("Choose appliance…")) {
+            System.out.println("Nothing selected.");
+            return;
+        }
+
+        // Load full appliance details from file
+        Appliance chosen = loadFullApplianceFromFile(selected);
+
+        if (chosen == null) {
+            System.out.println("Error: appliance not found.");
+            return;
+        }
+
+        // Generate and save report
+        currentReport = reportManager.generateReport(chosen);
+        reportManager.saveReport(currentReport);
+
+        // Now allow user to view it
+        btnViewReport.setVisible(true);
+
     }//GEN-LAST:event_btnGenerateReport1ActionPerformed
 
+    private void btnBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnBack1ActionPerformed
+
     /**
+     * Å
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -184,13 +312,13 @@ public class ReportsMenuForm extends javax.swing.JFrame {
     private javax.swing.JLabel Icon1;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JLabel backgroundLabel;
-    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnBack1;
     private javax.swing.JButton btnGenerateReport1;
+    private javax.swing.JButton btnViewReport;
     private javax.swing.JComboBox<String> cmbAppliance;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JLabel headingLabel;
     private javax.swing.JLabel lblSelector;
-    private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblback;
     // End of variables declaration//GEN-END:variables
 }
