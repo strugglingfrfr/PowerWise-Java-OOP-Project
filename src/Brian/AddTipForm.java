@@ -4,9 +4,11 @@
  */
 package Brian;
 
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,149 +16,156 @@ import javax.swing.*;
  */
 public class AddTipForm extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AddTipForm.class.getName());
+    String tipDescription;
+    boolean adopted;
 
     /**
      * Creates new form AddTipForm
      */
     public AddTipForm() {
         initComponents();
-        setLocationRelativeTo(null); // center window
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new JPanel();
-        headerLabel = new JLabel();
-        tipLabel = new JLabel();
-        tipTextArea = new JTextArea();
-        tipScrollPane = new JScrollPane();
-        adoptedCheckBox = new JCheckBox();
-        saveButton = new JButton();
-        cancelButton = new JButton();
+        headerPL = new javax.swing.JPanel();
+        titleLBL = new javax.swing.JLabel();
+        mainPL = new javax.swing.JPanel();
+        tipLBL = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
+        tipTA = new javax.swing.JTextArea();
+        adoptedCB = new javax.swing.JCheckBox();
+        saveButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Add Tip");
 
-        jPanel1.setBackground(new Color(245, 255, 245));
+        headerPL.setBackground(new java.awt.Color(26, 101, 26));
 
-        // Header
-        headerLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        headerLabel.setForeground(new Color(34, 139, 34));
-        headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        headerLabel.setText("Add Tip");
+        titleLBL.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        titleLBL.setForeground(new java.awt.Color(255, 255, 255));
+        titleLBL.setText("Power Wise - Add Tip Form");
 
-        // Tip label
-        tipLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        tipLabel.setText("Tip Description:");
+        javax.swing.GroupLayout headerPLLayout = new javax.swing.GroupLayout(headerPL);
+        headerPL.setLayout(headerPLLayout);
+        headerPLLayout.setHorizontalGroup(
+            headerPLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerPLLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(titleLBL)
+                .addContainerGap(200, Short.MAX_VALUE))
+        );
+        headerPLLayout.setVerticalGroup(
+            headerPLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerPLLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(titleLBL)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
 
-        // Tip text area
-        tipTextArea.setFont(new Font("Arial", Font.PLAIN, 14));
-        tipTextArea.setLineWrap(true);
-        tipTextArea.setWrapStyleWord(true);
-        tipScrollPane.setViewportView(tipTextArea);
+        mainPL.setBackground(new java.awt.Color(204, 255, 204));
+        mainPL.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        // Adopted checkbox
-        adoptedCheckBox.setFont(new Font("Arial", Font.PLAIN, 14));
-        adoptedCheckBox.setText("Adopted");
+        tipLBL.setFont(new java.awt.Font("Arial", 0, 14)); 
+        tipLBL.setText("Tip Description:");
+        mainPL.add(tipLBL, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
 
-        // Buttons
+        tipTA.setColumns(20);
+        tipTA.setFont(new java.awt.Font("Arial", 0, 14)); 
+        tipTA.setRows(5);
+        scrollPane.setViewportView(tipTA);
+
+        mainPL.add(scrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 240, 100));
+
+        adoptedCB.setFont(new java.awt.Font("Arial", 0, 14)); 
+        adoptedCB.setText("Adopted");
+        mainPL.add(adoptedCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, -1, -1));
+
+        saveButton.setBackground(new java.awt.Color(34, 139, 34));
+        saveButton.setForeground(new java.awt.Color(255, 255, 255));
+        saveButton.setFont(new java.awt.Font("Arial", 0, 14)); 
         saveButton.setText("Save");
+        saveButton.addActionListener(this::saveButtonActionPerformed);
+        mainPL.add(saveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, -1, -1));
+
+        cancelButton.setBackground(new java.awt.Color(34, 139, 34));
+        cancelButton.setForeground(new java.awt.Color(255, 255, 255));
+        cancelButton.setFont(new java.awt.Font("Arial", 0, 14)); 
         cancelButton.setText("Cancel");
-        styleButton(saveButton);
-        styleButton(cancelButton);
+        cancelButton.addActionListener(this::cancelButtonActionPerformed);
+        mainPL.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, -1, -1));
 
-        // Layout using GroupLayout
-        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(headerLabel, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(tipLabel)
-                    .addComponent(tipScrollPane, GroupLayout.PREFERRED_SIZE, 360, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(adoptedCheckBox))
-                .addContainerGap(20, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(saveButton, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(headerLabel)
-                .addGap(15, 15, 15)
-                .addComponent(tipLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tipScrollPane, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(adoptedCheckBox)
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(saveButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-
-        GroupLayout layout = new GroupLayout(getContentPane());
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(headerPL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mainPL, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(headerPL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mainPL, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    // Helper to style buttons
-    private void styleButton(JButton button) {
-        button.setFont(new Font("Arial", Font.PLAIN, 14));
-        button.setBackground(new Color(34, 139, 34));
-        button.setForeground(Color.WHITE);
-        button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(new Color(0, 100, 0)));
-    }
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        
+        tipDescription = tipTA.getText();
+        adopted = adoptedCB.isSelected();
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+            File f = new File("tipsList.txt");
+            BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));
 
-        java.awt.EventQueue.invokeLater(() -> new AddTipForm().setVisible(true));
+            bw.write("Tip Description: " + tipDescription);
+            bw.newLine();
+            bw.write("Adopted: " + adopted);
+            bw.newLine();
+            bw.newLine();
+            bw.close();
+
+            JOptionPane.showMessageDialog(this, "Tip saved successfully!");
+        } 
+        catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error writing to file: " + e.getMessage());
+        }
+
+    }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        new TipDashboardForm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_cancelButtonActionPerformed
+
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(() -> {
+            new AddTipForm().setVisible(true);
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JCheckBox adoptedCheckBox;
-    private JButton cancelButton;
-    private JLabel headerLabel;
-    private JLabel tipLabel;
-    private JScrollPane tipScrollPane;
-    private JTextArea tipTextArea;
-    private JButton saveButton;
-    private JPanel jPanel1;
+    private javax.swing.JCheckBox adoptedCB;
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JPanel headerPL;
+    private javax.swing.JPanel mainPL;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JButton saveButton;
+    private javax.swing.JLabel tipLBL;
+    private javax.swing.JTextArea tipTA;
+    private javax.swing.JLabel titleLBL;
     // End of variables declaration//GEN-END:variables
 }

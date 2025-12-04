@@ -11,5 +11,14 @@ import power.wise.app.SmartEnergyApp;
  * @author apple
  */
 public class ApplianceManager {
-    private ArrayList<Appliance> appliance;
+
+    private ArrayList<Appliance> appliances = new ArrayList<>();
+
+    public ArrayList<Appliance> getAppliances() {
+        return appliances;
+    }
+
+    public void addAppliance(Appliance a) {
+        appliances.add(a);
+    }
 }

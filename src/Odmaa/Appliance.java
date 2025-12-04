@@ -4,21 +4,18 @@
  */
 package Odmaa;
 
-
-
-
 /**
  *
  * @author apple
  */
-public class Appliance extends ApplianceManager{
+public class Appliance {
+
     private String applianceName;
-    private double energyUsage;
     private double wattage;
     private double hours;
+    private double energyUsage;   // Added because Hamza’s GUI reads this from file
 
-    public Appliance() {
-    }
+    public Appliance() { }
 
     public Appliance(String applianceName, double energyUsage, double wattage, double hours) {
         this.applianceName = applianceName;
@@ -27,44 +24,46 @@ public class Appliance extends ApplianceManager{
         this.hours = hours;
     }
 
-    public String getApplianceName() {
-        return applianceName;
-    }
-
+    // setters and getters
     public void setApplianceName(String applianceName) {
         this.applianceName = applianceName;
-    }
-
-    public double getEnergyUsage() {
-        return energyUsage;
-    }
-
-    public void setEnergyUsage(double energyUsage) {
-        this.energyUsage = energyUsage;
-    }
-
-    public double getWattage() {
-        return wattage;
     }
 
     public void setWattage(double wattage) {
         this.wattage = wattage;
     }
 
+    public void setHours(double hours) {
+        this.hours = hours;
+    }
+
+    public void setEnergyUsage(double energyUsage) {
+        this.energyUsage = energyUsage;
+    }
+
+    public String getApplianceName() {
+        return applianceName;
+    }
+
+    public double getWattage() {
+        return wattage;
+    }
+
     public double getHours() {
         return hours;
     }
 
-    public void setHours(double hours) {
-        this.hours = hours;
+    public double getEnergyUsage() {
+        return energyUsage;
     }
-    
-    public double claculateEnergyUsage(){
-        return energyUsage = wattage * hours ;
+
+    // for safety — if energyUsage wasn't saved, we calculate it
+    public double calculateEnergyUsage() {
+        return wattage * hours;
     }
-    
+
     @Override
-    public String toString(){
-        return applianceName + " : energy usage is " + energyUsage;
+    public String toString() {
+        return applianceName + " (Wattage: " + wattage + ", Hours/day: " + hours + ")";
     }
 }

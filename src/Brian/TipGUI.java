@@ -30,7 +30,8 @@ public class TipGUI extends javax.swing.JFrame {
         headingLabel = new javax.swing.JLabel();
         mainPanel = new javax.swing.JPanel();
         btnMainMenu = new javax.swing.JButton();
-        btnNextForm = new javax.swing.JButton();
+        btnDashboard = new javax.swing.JButton();
+        btnAddTip = new javax.swing.JButton();   // NEW BUTTON ✔✔✔
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,7 +58,7 @@ public class TipGUI extends javax.swing.JFrame {
         // Main Panel
         mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        // Buttons
+        // Main Menu Button
         btnMainMenu.setBackground(new java.awt.Color(26, 101, 26));
         btnMainMenu.setFont(new java.awt.Font("Helvetica Neue", 0, 15));
         btnMainMenu.setForeground(new java.awt.Color(242, 242, 242));
@@ -67,18 +68,31 @@ public class TipGUI extends javax.swing.JFrame {
             new PowerWiseGUI().setVisible(true);
             this.dispose();
         });
-        mainPanel.add(btnMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 170, 70));
+        mainPanel.add(btnMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 170, 70));
 
-        btnNextForm.setBackground(new java.awt.Color(26, 101, 26));
-        btnNextForm.setFont(new java.awt.Font("Helvetica Neue", 0, 15));
-        btnNextForm.setForeground(new java.awt.Color(242, 242, 242));
-        btnNextForm.setText("Tip Dashboard");
-        btnNextForm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        btnNextForm.addActionListener(evt -> {
+        // Dashboard Button
+        btnDashboard.setBackground(new java.awt.Color(26, 101, 26));
+        btnDashboard.setFont(new java.awt.Font("Helvetica Neue", 0, 15));
+        btnDashboard.setForeground(new java.awt.Color(242, 242, 242));
+        btnDashboard.setText("Tip Dashboard");
+        btnDashboard.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnDashboard.addActionListener(evt -> {
             new TipDashboardForm().setVisible(true);
             this.dispose();
         });
-        mainPanel.add(btnNextForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 170, 70));
+        mainPanel.add(btnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 170, 70));
+
+        // NEW Add Tip Button ✔✔✔
+        btnAddTip.setBackground(new java.awt.Color(26, 101, 26));
+        btnAddTip.setFont(new java.awt.Font("Helvetica Neue", 0, 15));
+        btnAddTip.setForeground(new java.awt.Color(242, 242, 242));
+        btnAddTip.setText("Add New Tip");
+        btnAddTip.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        btnAddTip.addActionListener(evt -> {
+            new AddTipForm().setVisible(true);
+            this.dispose();
+        });
+        mainPanel.add(btnAddTip, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 170, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,21 +112,7 @@ public class TipGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
         java.awt.EventQueue.invokeLater(() -> new TipGUI().setVisible(true));
     }
 
@@ -121,6 +121,7 @@ public class TipGUI extends javax.swing.JFrame {
     private javax.swing.JLabel headingLabel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JButton btnMainMenu;
-    private javax.swing.JButton btnNextForm;
+    private javax.swing.JButton btnDashboard;
+    private javax.swing.JButton btnAddTip;   // ✔ ADDED
     // End of variables declaration//GEN-END:variables
 }
