@@ -8,6 +8,7 @@ import Odmaa.Appliance;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import javax.swing.JOptionPane;
 /**
  *
  * @author apple
@@ -27,62 +28,57 @@ public class ReportsMenuForm extends javax.swing.JFrame {
     /**
      * Creates new form ReportGUI
      */
-    
-
     public ReportsMenuForm() {
         initComponents();
-        loadAppliancesIntoDropdown();
-        btnViewReport.setVisible(false); // hide view button initially
+        loadFixedApplianceList();
+        btnViewReport.setVisible(false);
     }
 
     // Loads appliance names from applianceList.txt into the combo box
-    private void loadAppliancesIntoDropdown() {
+    /**
+     * Load the 5 fixed appliances only.
+     */
+    private void loadFixedApplianceList() {
         cmbAppliance.removeAllItems();
-        cmbAppliance.addItem("Choose appliance…");
-
-        try {
-            File f = new File("applianceList.txt");
-            FileReader fr = new FileReader(f);
-            BufferedReader br = new BufferedReader(fr);
-
-            String line;
-            while ((line = br.readLine()) != null) {
-
-                if (line.startsWith("Appliance Name: ")) {
-                    String name = line.substring("Appliance Name: ".length()).trim();
-                    cmbAppliance.addItem(name);
-                }
-            }
-            br.close();
-
-        } catch (Exception e) {
-            System.out.println("Error loading appliances: " + e.getMessage());
-        }
+        cmbAppliance.addItem("Choose appliance...");
+        cmbAppliance.addItem("Laptop");
+        cmbAppliance.addItem("Heater");
+        cmbAppliance.addItem("Fridge");
+        cmbAppliance.addItem("TV");
+        cmbAppliance.addItem("Washing Machine");
     }
 
     /**
-     * Reads wattage, hours, energy from Odmaa's applianceList.txt
+     * Reads full appliance block from data/applianceList.txt
      */
     private Appliance loadFullApplianceFromFile(String nameToFind) {
 
         try {
-            File f = new File("applianceList.txt");
-            FileReader fr = new FileReader(f);
-            BufferedReader br = new BufferedReader(fr);
+            File folder = new File("data");
+            File f = new File(folder, "applianceList.txt");
 
+            if (!f.exists()) {
+                return null; // no data at all
+            }
+
+            BufferedReader br = new BufferedReader(new FileReader(f));
             String line;
 
             while ((line = br.readLine()) != null) {
 
                 if (line.startsWith("Appliance Name: ")) {
-
                     String name = line.substring("Appliance Name: ".length()).trim();
 
                     if (name.equalsIgnoreCase(nameToFind)) {
 
-                        String wattLine   = br.readLine();  // Wattage
-                        String hrsLine    = br.readLine();  // Hours of Usage
-                        String energyLine = br.readLine();  // Energy Usage
+                        String wattLine   = br.readLine();
+                        String hrsLine    = br.readLine();
+                        String energyLine = br.readLine();
+
+                        if (wattLine == null || hrsLine == null || energyLine == null) {
+                            br.close();
+                            return null;
+                        }
 
                         double watt = Double.parseDouble(
                                 wattLine.substring("Wattage: ".length()).trim());
@@ -95,7 +91,6 @@ public class ReportsMenuForm extends javax.swing.JFrame {
 
                         br.close();
 
-                        // Use setters so we don’t depend on a specific constructor
                         Appliance a = new Appliance();
                         a.setApplianceName(name);
                         a.setWattage(watt);
@@ -114,6 +109,7 @@ public class ReportsMenuForm extends javax.swing.JFrame {
 
         return null;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -254,30 +250,40 @@ public class ReportsMenuForm extends javax.swing.JFrame {
        
         String selected = cmbAppliance.getSelectedItem().toString();
 
-        if (selected.equals("Choose appliance…")) {
-            System.out.println("Nothing selected.");
+        if (selected.equals("Choose appliance...")) {
+            JOptionPane.showMessageDialog(this,
+                "Please select an appliance.",
+                "No Selection",
+                JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Load full appliance details from file
+        // Load appliance
         Appliance chosen = loadFullApplianceFromFile(selected);
 
         if (chosen == null) {
-            System.out.println("Error: appliance not found.");
+            JOptionPane.showMessageDialog(this,
+                "No data found for " + selected + ".\nPlease add it in the Appliance section first.",
+                "Missing Data",
+                JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Generate and save report
+        // Build & save report
         currentReport = reportManager.generateReport(chosen);
         reportManager.saveReport(currentReport);
 
-        // Now allow user to view it
         btnViewReport.setVisible(true);
-
+        JOptionPane.showMessageDialog(this,
+                "Report generated successfully!",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE);
+    
     }//GEN-LAST:event_btnGenerateReport1ActionPerformed
 
     private void btnBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack1ActionPerformed
         // TODO add your handling code here:
+        new ReportGUI().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBack1ActionPerformed
 

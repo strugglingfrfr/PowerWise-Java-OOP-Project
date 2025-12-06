@@ -1,7 +1,0 @@
-GitHub Repository Link:
-https://github.com/strugglingfrfr/PowerWise-Java-OOP-Project
-
-Project Collaborators:
-- Muhammad Hamza Anjum
-- Odmaa Daava
-- Brian Ikoro

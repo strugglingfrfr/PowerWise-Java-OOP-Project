@@ -8,8 +8,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import power.wise.app.PowerWiseGUI;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,8 +25,22 @@ public class ApplianceListForm extends javax.swing.JFrame {
     public ApplianceListForm() {
         initComponents();
         loadComboBox();
-      
-       
+
+        // Make the display area read-only and nice to read
+        displayTA.setEditable(false);
+        displayTA.setLineWrap(true);
+        displayTA.setWrapStyleWord(true);
+        displayTA.setFocusable(false);
+    }
+    // Load list of appliance types
+    private void loadComboBox() {
+        searchappliance.removeAllItems();
+        searchappliance.addItem("Choose Appliance");
+        searchappliance.addItem("Laptop");
+        searchappliance.addItem("Heater");
+        searchappliance.addItem("Fridge");
+        searchappliance.addItem("TV");
+        searchappliance.addItem("Washing Machine");
     }
 
     /**
@@ -207,30 +220,17 @@ public class ApplianceListForm extends javax.swing.JFrame {
 
     private void addBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBTNActionPerformed
         // TODO add your handling code here:
-        new AddApplianceForm().setVisible(true);
+        String selectedName = searchappliance.getSelectedItem().toString();
+
+        if (selectedName.equals("Choose Appliance")) {
+            JOptionPane.showMessageDialog(this, "Please select an appliance type.");
+            return;
+        }
+
+        new AddApplianceForm(selectedName).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_addBTNActionPerformed
-    private void loadComboBox(){
-            File f;
-            FileReader fr;
-            BufferedReader br;
-        try{    
-            f = new File("applianceList.txt");
-            fr = new FileReader(f);
-            br = new BufferedReader(fr);
-            String line;
-            
-            while((line = br.readLine()) != null){
-                if(line.startsWith("Appliance Name: ")){
-                    String name = line.substring(16).trim();
-                    searchappliance.addItem(name);                
-                }
-            }
-            br.close();
-        }catch(IOException e){
-            System.out.println("Error: " + e);
-        }
-    }
+    
     private void searchapplianceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchapplianceActionPerformed
         // TODO add your handling code here:
            
@@ -240,62 +240,72 @@ public class ApplianceListForm extends javax.swing.JFrame {
     private void searchBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBTNActionPerformed
         // TODO add your handling code here:
         String selectedName = searchappliance.getSelectedItem().toString();
-        File f;
-        FileReader fr;
-        BufferedReader br;
-        try{
-            f = new File("applianceList.txt");
-            fr = new FileReader(f);
-            br = new BufferedReader(fr);
+
+        if (selectedName.equals("Choose Appliance")) {
+            displayTA.setText("Please select an appliance first.");
+            return;
+        }
+
+        File folder = new File("data");
+        File f = new File(folder, "applianceList.txt");
+
+        if (!f.exists()) {
+            displayTA.setText("No appliance data found.\nPlease add appliances in the Energy Usage section.");
+            return;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+
             String line;
             boolean found = false;
 
-        String name = "", watt = "", hrs = "", energy = "";
+            String name = "", watt = "", hrs = "", energy = "";
 
-        while ((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
 
-            if (line.startsWith("Appliance Name: ")) {
+                if (line.startsWith("Appliance Name: ")) {
 
-                name = line.substring("Appliance Name: ".length()).trim();
+                    name = line.substring("Appliance Name: ".length()).trim();
 
-                if (name.equalsIgnoreCase(selectedName)) {
+                    if (name.equalsIgnoreCase(selectedName)) {
 
-                    String lineWatt = br.readLine();
-                    String lineHrs = br.readLine();
-                    String lineEnergy = br.readLine();
+                        String lineWatt = br.readLine();
+                        String lineHrs = br.readLine();
+                        String lineEnergy = br.readLine();
 
-                    if (lineWatt != null && lineWatt.startsWith("Wattage: ")) {
-                        watt = lineWatt.substring("Wattage: ".length()).trim();
+                        if (lineWatt != null && lineWatt.startsWith("Wattage: ")) {
+                            watt = lineWatt.substring("Wattage: ".length()).trim();
+                        }
+
+                        if (lineHrs != null && lineHrs.startsWith("Hours of Usage: ")) {
+                            hrs = lineHrs.substring("Hours of Usage: ".length()).trim();
+                        }
+
+                        if (lineEnergy != null && lineEnergy.startsWith("Energy Usage: ")) {
+                            energy = lineEnergy.substring("Energy Usage: ".length()).trim();
+                        }
+
+                        found = true;
+                        break;
                     }
-
-                    if (lineHrs != null && lineHrs.startsWith("Hours of Usage: ")) {
-                        hrs = lineHrs.substring("Hours of Usage: ".length()).trim();
-                    }
-
-                    if (lineEnergy != null && lineEnergy.startsWith("Energy Usage: ")) {
-                        energy = lineEnergy.substring("Energy Usage: ".length()).trim();
-                    }
-
-                    found = true;
-                    break;
                 }
             }
-        }
-            
-               
-            
-         br.close();
-          if (found) {
-            displayTA.setText(          
-                "Appliance Name: " + name + "\n" +
-                "Wattage: " + watt + "\n" +
-                "Hours Used: " + hrs + "\n" +
-                "Energy Usage: " + energy
-            );
-        } else {
-            displayTA.setText("No appliance found.");
-        }
-        }catch(IOException e){
+
+            if (found) {
+                displayTA.setText(
+                    "Appliance Name: " + name + "\n" +
+                    "Wattage: " + watt + " W\n" +
+                    "Hours Used: " + hrs + " hrs/day\n" +
+                    "Energy Usage: " + energy + " Wh/day"
+                );
+                displayTA.setCaretPosition(0);
+            } else {
+                displayTA.setText("No appliance data found for " + selectedName +
+                                  ".\nPlease add it in the Energy Usage section.");
+            }
+
+        } catch (IOException e) {
+            displayTA.setText("Error reading appliance data.");
             System.out.println("Error: " + e);
         }
         
@@ -304,6 +314,7 @@ public class ApplianceListForm extends javax.swing.JFrame {
     private void removeBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBTNActionPerformed
         // TODO add your handling code here:
         displayTA.setText("");
+        searchappliance.setSelectedIndex(0);   // reset dropdown
     }//GEN-LAST:event_removeBTNActionPerformed
 
     /**

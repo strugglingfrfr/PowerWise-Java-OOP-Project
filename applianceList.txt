@@ -1,9 +1,0 @@
-Appliance Name: fridge
-Wattage: 13.0
-Hours of Usage: 24.0Appliance Name: fridge
-Wattage: 13.0
-Hours of Usage: 24.0
-Appliance Name: AC
-Wattage: 60.0
-Hours of Usage: 3.0
-Energy Usage: 180.0

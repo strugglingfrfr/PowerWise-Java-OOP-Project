@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import power.wise.app.PowerWiseGUI;
 
 /**
  *
@@ -29,6 +30,42 @@ public class AddApplianceForm extends javax.swing.JFrame {
         appliance = new ArrayList<>();
         initComponents();
     }
+    /**
+     * Constructor used from ApplianceListForm, with name prefilled
+    */
+    public AddApplianceForm(String selectedName) {
+        initComponents();
+        setupCommonUi(true);  // lock name
+        nameTF.setText(selectedName);
+    }
+    
+    private void setupCommonUi(boolean lockName) {
+        // numeric-only for wattage and hours
+        wattageTF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                if (!Character.isDigit(evt.getKeyChar())) {
+                    evt.consume();
+                }
+            }
+        });
+
+        hoursTF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                if (!Character.isDigit(evt.getKeyChar())) {
+                    evt.consume();
+                }
+            }
+        });
+
+        // name behaviour
+        nameTF.setEditable(!lockName);
+
+        // message box behaviour
+        displayTA.setEditable(false);
+        displayTA.setLineWrap(true);
+        displayTA.setWrapStyleWord(true);
+        displayTA.setFocusable(false);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,7 +81,6 @@ public class AddApplianceForm extends javax.swing.JFrame {
         mainPL = new javax.swing.JPanel();
         saveBTN = new javax.swing.JButton();
         backBTN = new javax.swing.JButton();
-        addBTN = new javax.swing.JButton();
         hoursLBL = new javax.swing.JLabel();
         wattageTF = new javax.swing.JTextField();
         hoursTF = new javax.swing.JTextField();
@@ -88,7 +124,7 @@ public class AddApplianceForm extends javax.swing.JFrame {
                 saveBTNActionPerformed(evt);
             }
         });
-        mainPL.add(saveBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, -1, -1));
+        mainPL.add(saveBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, -1, -1));
 
         backBTN.setText("BACK");
         backBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -96,15 +132,7 @@ public class AddApplianceForm extends javax.swing.JFrame {
                 backBTNActionPerformed(evt);
             }
         });
-        mainPL.add(backBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, -1, -1));
-
-        addBTN.setText("ADD");
-        addBTN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addBTNActionPerformed(evt);
-            }
-        });
-        mainPL.add(addBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
+        mainPL.add(backBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 280, -1, -1));
 
         hoursLBL.setText("Hours Used By Day:");
         mainPL.add(hoursLBL, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
@@ -150,41 +178,88 @@ public class AddApplianceForm extends javax.swing.JFrame {
 
     private void backBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBTNActionPerformed
         // TODO add your handling code here:
-        new ApplianceListForm().setVisible(true);
+        new PowerWiseGUI().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backBTNActionPerformed
-
-    private void addBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBTNActionPerformed
-        // TODO add your handling code here:
-        applianceName = nameTF.getText();
-        hours = Double.parseDouble(hoursTF.getText());
-        wattage = Double.parseDouble(wattageTF.getText());
-        energyUsage = wattage * hours;
-        
-        Appliance tempA = new Appliance(applianceName,energyUsage, wattage, hours);
-        appliance.add(tempA);
-        displayTA.setText("Appliance added" + tempA.toString());
-    }//GEN-LAST:event_addBTNActionPerformed
 
     private void saveBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBTNActionPerformed
         // TODO add your handling code here:
         try {
-        File f = new File("applianceList.txt");
-        BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));
+            String name = nameTF.getText().trim();
+            String wattStr = wattageTF.getText().trim();
+            String hrsStr = hoursTF.getText().trim();
 
-        bw.write("Appliance Name: " + applianceName);
-        bw.newLine();
-        bw.write("Wattage: " + wattage);
-        bw.newLine();
-        bw.write("Hours of Usage: " + hours);
-        bw.newLine();
-        bw.write("Energy Usage: " + energyUsage);
-        bw.newLine();
-        bw.close();
-        
-        displayTA.append(" written to file");
-        }catch(IOException e){
-            System.out.println("Wrinting to file error: " + e);
+            // validation
+            if (name.isEmpty()) {
+                displayTA.setText("Appliance name missing.");
+                return;
+            }
+
+            if (wattStr.isEmpty() || hrsStr.isEmpty()) {
+                displayTA.setText("Please enter wattage and hours.");
+                return;
+            }
+
+            double watt = Double.parseDouble(wattStr);
+            double hrs = Double.parseDouble(hrsStr);
+            double energy = watt * hrs;
+
+            // ensure data folder exists
+            File folder = new File("data");
+            if (!folder.exists()) {
+                folder.mkdir();
+            }
+
+            File f = new File(folder, "applianceList.txt");
+
+            // read existing content and remove old block for this appliance
+            StringBuilder newFile = new StringBuilder();
+            if (f.exists()) {
+                try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+                    String line;
+                    boolean skip = false;
+
+                    while ((line = br.readLine()) != null) {
+
+                        if (line.startsWith("Appliance Name: ")) {
+                            String existingName =
+                                    line.substring("Appliance Name: ".length()).trim();
+                            // if same appliance, skip its old block
+                            skip = existingName.equalsIgnoreCase(name);
+                        }
+
+                        if (!skip) {
+                            newFile.append(line).append("\n");
+                        }
+
+                        // end of block = blank line
+                        if (line.trim().isEmpty()) {
+                            skip = false;
+                        }
+                    }
+                }
+            }
+
+            // append new clean block
+            newFile.append("Appliance Name: ").append(name).append("\n");
+            newFile.append("Wattage: ").append(watt).append("\n");
+            newFile.append("Hours of Usage: ").append(hrs).append("\n");
+            newFile.append("Energy Usage: ").append(energy).append("\n\n");
+
+            // write back
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
+                bw.write(newFile.toString());
+            }
+
+            displayTA.setText(
+                "Saved!\n\n" +
+                name + " updated in your appliance list.\n" +
+                "Go to Reports to generate your report."
+            );
+            displayTA.setCaretPosition(0);
+
+        } catch (Exception e) {
+            displayTA.setText("Error saving appliance. Please check your inputs.");
         }
     }//GEN-LAST:event_saveBTNActionPerformed
 
@@ -214,7 +289,6 @@ public class AddApplianceForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addBTN;
     private javax.swing.JButton backBTN;
     private javax.swing.JTextArea displayTA;
     private javax.swing.JPanel headerPL;

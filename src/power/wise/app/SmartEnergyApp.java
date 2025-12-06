@@ -4,21 +4,42 @@
  */
 package power.wise.app;
 
+import java.io.File;
+import java.io.FileWriter;
+
 /**
  *
  * @author apple
  */
 public class SmartEnergyApp {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
-        //starting the app
+
+        resetApplianceDataFile();
+
         java.awt.EventQueue.invokeLater(() -> {
             new PowerWiseGUI().setVisible(true);
         });
     }
-    
+
+    private static void resetApplianceDataFile() {
+        try {
+            File folder = new File("data");
+            if (!folder.exists()) {
+                folder.mkdir();
+            }
+
+            File f = new File(folder, "applianceList.txt");
+
+            // overwrite file
+            FileWriter fw = new FileWriter(f, false);
+            fw.write("");  
+            fw.close();
+
+            System.out.println("Appliance data reset successfully.");
+
+        } catch (Exception e) {
+            System.out.println("Error resetting appliance data: " + e.getMessage());
+        }
+    }
 }

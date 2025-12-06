@@ -49,7 +49,7 @@ public class EfficiencyReport extends Report {
     public String printReport() {
 
         return 
-            "⚠ HIGH ENERGY WARNING ⚠\n" +
+            "❗❗ HIGH ENERGY WARNING ❗❗\n" +
             warningMessage + "\n\n" +
             super.printReport();
     }

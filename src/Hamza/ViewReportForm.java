@@ -4,6 +4,8 @@
  */
 package Hamza;
 
+import javax.swing.JOptionPane;
+
 
 
 /**
@@ -22,12 +24,15 @@ public class ViewReportForm extends javax.swing.JFrame {
     public ViewReportForm() {
         initComponents();
         txtReportSummary.setEditable(false);
+        // Hide the warning icon by default
+        warningIcon.setVisible(false);
     }
 
     // Overloaded constructor – receives the generated Report
     public ViewReportForm(Report report) {
         this();                 // calls initComponents()
         this.currentReport = report;
+        displayReportDetails();
     }
     
     /**
@@ -49,6 +54,7 @@ public class ViewReportForm extends javax.swing.JFrame {
         Icon1 = new javax.swing.JLabel();
         btnSaveReport = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        warningIcon = new javax.swing.JLabel();
         backgroundLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -123,6 +129,10 @@ public class ViewReportForm extends javax.swing.JFrame {
         });
         MainPanel.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, 170, 70));
 
+        warningIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/power/wise/app/icons/warning.png"))); // NOI18N
+        warningIcon.setText("jLabel1");
+        MainPanel.add(warningIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, 120, 110));
+
         backgroundLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/power/wise/app/icons/ReportsBackground.jpg"))); // NOI18N
         MainPanel.add(backgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 750, 420));
 
@@ -158,12 +168,32 @@ public class ViewReportForm extends javax.swing.JFrame {
             fw.write(currentReport.printReport() + "\n\n");
             fw.close();
 
-            javax.swing.JOptionPane.showMessageDialog(this, "Report saved successfully!");
+            JOptionPane.showMessageDialog(this, "Report saved successfully!");
 
         } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error saving report.");
+            JOptionPane.showMessageDialog(this, "Error saving report.");
         }
     }//GEN-LAST:event_btnSaveReportActionPerformed
+    
+   
+    
+    //Fills in all fields and shows warning icon if needed.
+    private void displayReportDetails() {
+        if (currentReport != null) {
+
+            txtReportSummary.setText(currentReport.printReport());
+            txtReportSummary.setCaretPosition(0);
+
+            lblReportTitle.setText("Energy Report – " + currentReport.getApplianceName());
+
+            // Show icon ONLY when report is EfficiencyReport
+            if (currentReport instanceof EfficiencyReport) {
+                warningIcon.setVisible(true);
+            } else {
+                warningIcon.setVisible(false);
+            }
+        }
+    }       
 
     /**
      * @param args the command line arguments
@@ -189,16 +219,7 @@ public class ViewReportForm extends javax.swing.JFrame {
         /* Create and dibtnMainMenuform */
         java.awt.EventQueue.invokeLater(() -> new ViewReportForm().setVisible(true));
     }
-    
-    // Displays the report details in the text area and updates title
-    private void displayReportDetails() {
-        if (currentReport != null) {
-            txtReportSummary.setText(currentReport.printReport());
-            txtReportSummary.setCaretPosition(0);
-            lblReportTitle.setText("Energy Report – " + currentReport.getApplianceName());
-        }
-    }
-
+       
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Icon1;
@@ -212,5 +233,6 @@ public class ViewReportForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblReportTitle;
     private javax.swing.JTextArea txtReportSummary;
+    private javax.swing.JLabel warningIcon;
     // End of variables declaration//GEN-END:variables
 }
